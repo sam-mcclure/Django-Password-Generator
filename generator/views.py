@@ -7,7 +7,15 @@ def home(request):
 
 def password(request):
     characters = list('abcdefghijklmnopqrstuvwxyz')
-    length = 10
+
+    if request.GET.get('uppercase'):
+        characters.extend('ABCDEFGHIJKLMNOPQRSTUVWXYZ')
+    if request.GET.get('special'):
+        characters.extend('!@#$%^&*()_-+=[]{}?<>;:')
+    if request.GET.get('numbers'):
+        characters.extend('1234567890')
+
+    length = int(request.GET.get('length', 12))
     password = ''
 
     for _ in range(length):
